@@ -15,10 +15,11 @@ const serviceAccounts = {
 		}
 	},
 	"from": "'Abhinav Sidhartha' <sidabhi23@gmail.com>",
-	"to": "dharna14kaushik@gmail.com"
+	"to": ""
 }; 
 
-const sendEmailNotification = async (url, price, productName) => {
+const sendEmailNotification = async (url, price, productName,email) => {
+    serviceAccounts.to=email;
     const transporter = nodemailer.createTransport(serviceAccounts.transport);
     transporter.verify(function(error, success) {
        if (error) {
