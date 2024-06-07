@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/zodiac-and-astrology-symbol-of-the-planet-mercury-in-gold-colors-astronomical-icon-shawlin.jpg" alt="App Logo" class="logo">
+        <h1>Mercury</h1>
+        <form id="appForm">
+            <input type="url" id="myntraUrl" placeholder="Myntra URL" required>
+            <input type="number" id="thresholdPrice" placeholder="Threshold Price" required>
+            <input type="email" id="emailId" placeholder="Email ID" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('appForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const myntraUrl = document.getElementById('myntraUrl').value;
+            const thresholdPrice = document.getElementById('thresholdPrice').value;
+            const emailId = document.getElementById('emailId').value;
+
+            const data = {
+                myntraUrl: myntraUrl,
+                thresholdPrice: thresholdPrice,
+                email: emailId
+            };
+
+            fetch('http://localhost:8080/api/myntra_details_create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Form submitted successfully!');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error submitting the form.');
+            });
+        });
+    </script>
+</body>
+</html>
