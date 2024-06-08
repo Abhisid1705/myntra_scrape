@@ -47,6 +47,27 @@
         button:hover {
             background-color: #0056b3;
         }
+        .popup{
+            display:none;
+            position: fixed;
+            left: 50%;
+            top:50%;
+            width: 300px;
+            height: 150px;
+            transform:translate(-50%,-50%);
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-radius: 10px;
+            background: linear-gradient(135deg,#6dd5fa,#ffffff);
+            box-shadow: 0 0 150px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .popup button{
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -59,6 +80,13 @@
             <input type="email" id="emailId" placeholder="Email ID" required>
             <button type="submit">Submit</button>
         </form>
+        <div id="thankYouPopup" class="popup">
+             <p>
+                Your product is on our radar  🎉 Relax !
+                we will let you know when product is available at desired price
+            😊</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
     </div>
 
     <script>
@@ -85,13 +113,20 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-                alert('Form submitted successfully!');
+                showPopup();
             })
             .catch((error) => {
                 console.error('Error:', error);
                 alert('Error submitting the form.');
             });
         });
+        function closePopup(){
+            document.getElementById("thankYouPopup").style.display='none'
+            document.getElementById("appForm").reset();
+        }
+        function showPopup(){
+            document.getElementById("thankYouPopup").style.display='block'
+        }
     </script>
 </body>
 </html>
